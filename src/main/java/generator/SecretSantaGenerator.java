@@ -6,6 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +24,7 @@ import com.google.common.collect.Lists;
 public class SecretSantaGenerator {
 
 	public static void main(String[] args) throws IOException, EmailException {
-		FileReader fileReader = new FileReader(new File("src/main/resources/TestData.csv"));
+		FileReader fileReader = new FileReader(new File("src/main/resources/Secret Santa Participants.csv"));
 		BufferedReader buffRead = new BufferedReader(fileReader);
 		String participant;
 		Map<String, String> participants1 = new HashMap<String, String>();
@@ -105,6 +109,9 @@ public class SecretSantaGenerator {
 		email.send();
 		System.out.println("Secret Santa mappings csv sent!");
 		
+		// delete the mappings csv
+		deleteFile("src/main/resources/SecretSantaMappings.csv");
+		
 		// set embedded image for participant email
 		String cid2 = email.embed(new File("src/main/resources/SecretSantaImage2a.png"));
 		
@@ -136,4 +143,27 @@ public class SecretSantaGenerator {
 		System.out.println("Emails sent to all " + numberOfParticipants + " Secret Santa participants.");
 		buffRead.close();
 	}
+	
+	public static void deleteFile(String file) 
+    { 
+        try
+        { 
+        	System.out.println("Attempting to delete '" + file + "'");
+        	Files.deleteIfExists(Paths.get(file)); 
+        } 
+        catch(NoSuchFileException e) 
+        { 
+            System.out.println("No such file/directory exists"); 
+        } 
+        catch(DirectoryNotEmptyException e) 
+        { 
+            System.out.println("Directory is not empty."); 
+        } 
+        catch(IOException e) 
+        { 
+            System.out.println("Invalid permissions."); 
+        } 
+          
+        System.out.println("File deletion successful."); 
+    } 
 }
