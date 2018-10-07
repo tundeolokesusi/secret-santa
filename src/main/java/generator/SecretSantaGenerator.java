@@ -88,7 +88,7 @@ public class SecretSantaGenerator {
 //		email.setAuthenticator(new DefaultAuthenticator(secretSantaEmail, secretSantaPassword));
 		email.setAuthentication(secretSantaEmail, secretSantaPassword);
 		email.setSSLOnConnect(true);
-		email.setFrom(secretSantaEmail,"Gamma's Santa");
+		email.setFrom(secretSantaEmail,"Secret Santa");
 		email.addTo(secretSantaemail, "Secret Santa Overseer");
 		email.setSubject("Secret Santa 2018 Participant Mappings");
 		
@@ -125,12 +125,11 @@ public class SecretSantaGenerator {
 			email.setSmtpPort(465);
 			email.setAuthentication(secretSantaEmail, secretSantaPassword);
 			email.setSSLOnConnect(true);
-			email.setFrom(secretSantaEmail,"Gamma's Santa");
+			email.setFrom(secretSantaEmail,"Secret Santa");
 			email.setSubject("Secret Santa 2018");
 			// set the html message
 			email.setHtmlMsg("<html><img src=\"cid:"+cid2+"\"><p>\nHo Ho Ho " + name + ","
-					+ "\n\nYou will be getting a Secret Santa gift for:\n\n"
-					+ giftee + "</p></html>");
+					+ "\nYou will be getting a Secret Santa gift for:\n" + giftee + "</p></html>");
 			// set the alternative message
 			email.setTextMsg("Ho Ho Ho " + name + "," + System.lineSeparator() + System.lineSeparator() 
 				+ "You will be getting a Secret Santa gift for:" + System.lineSeparator() + System.lineSeparator() 
