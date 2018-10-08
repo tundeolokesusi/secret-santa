@@ -112,6 +112,9 @@ public class SecretSantaGenerator {
 		// delete the mappings csv
 		deleteFile("src/main/resources/SecretSantaMappings.csv");
 		
+		String giftPurchaseDeadline = "Wednesday 12th December";
+		String giftExchangeDate = "Thursday 13th December @ 11am";
+		
 		// set embedded image for participant email
 		String cid2 = email.embed(new File("src/main/resources/SecretSantaImage2a.png"));
 		
@@ -128,8 +131,11 @@ public class SecretSantaGenerator {
 			email.setFrom(secretSantaEmail,"Secret Santa");
 			email.setSubject("Secret Santa 2018");
 			// set the html message
-			email.setHtmlMsg("<html><img src=\"cid:"+cid2+"\"><p>\nHo Ho Ho " + name + ","
-					+ "\nYou will be getting a Secret Santa gift for:\n" + giftee + "</p></html>");
+			String htmlText = "<html><img src=\"cid:"+cid2+"\"><p>\nHo Ho Ho " + name + ","
+					+ "<br/>You will be getting a Secret Santa gift for:<br/><font color=\"white\"><bold>" + giftee + "</bold></font>"
+					+ "<br/>Please have you gift purchased and in the avialble Santa Sacks in the kitchen by " + giftPurchaseDeadline
+					+ "<br/>Gifts will be handed out on " + giftExchangeDate + "</p></html>";
+			email.setHtmlMsg(htmlText);
 			// set the alternative message
 			email.setTextMsg("Ho Ho Ho " + name + "," + System.lineSeparator() + System.lineSeparator() 
 				+ "You will be getting a Secret Santa gift for:" + System.lineSeparator() + System.lineSeparator() 
