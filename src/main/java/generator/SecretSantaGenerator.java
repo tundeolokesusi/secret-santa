@@ -32,6 +32,14 @@ import com.google.common.collect.Lists;
 import text.TextAlignment;
 import text.TextRenderer;
 
+/**
+ * A class that randomly generates names for secret santa from a csv of participants & emails
+ * Then emails out the secret santa giftee to the participants with a printable label attached
+ * 
+ * @author  Tunde Olokesusi
+ * @version 1.0
+ **/
+
 public class SecretSantaGenerator {
 
 	public static void main(String[] args) throws IOException, EmailException {
