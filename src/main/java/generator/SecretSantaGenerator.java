@@ -1,5 +1,7 @@
 package generator;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
+
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.ImageHtmlEmail;
@@ -25,6 +29,9 @@ import com.google.common.collect.Lists;
 public class SecretSantaGenerator {
 
 	public static void main(String[] args) throws IOException, EmailException {
+		
+		secretSantaLabel("src/main/resources/SecretSantaMappings.csv","Tunde Olokesusi");
+		
 		FileReader fileReader = new FileReader(new File("src/main/resources/Secret Santa Participants.csv"));
 		BufferedReader buffRead = new BufferedReader(fileReader);
 		String participant;
@@ -180,4 +187,15 @@ public class SecretSantaGenerator {
           
         System.out.println("File deletion successful."); 
     }
+	
+	public static void secretSantaLabel(String imageFile,String name) throws IOException {
+	    final BufferedImage image = ImageIO.read(new File(imageFile));
+
+	    Graphics g = image.getGraphics();
+	    g.setFont(g.getFont().deriveFont(30f));
+	    g.drawString(name, 100, 100);
+	    g.dispose();
+
+	    ImageIO.write(image, "png", new File("src/main/resources/SecretSantaLabel.png"));
+	}
 }
