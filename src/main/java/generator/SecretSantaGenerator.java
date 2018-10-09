@@ -1,6 +1,9 @@
 package generator;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,12 +29,12 @@ import org.apache.commons.mail.resolver.DataSourceFileResolver;
 
 import com.google.common.collect.Lists;
 
+import text.TextAlignment;
+import text.TextRenderer;
+
 public class SecretSantaGenerator {
 
 	public static void main(String[] args) throws IOException, EmailException {
-		
-		secretSantaLabel("src/main/resources/SecretSantaMappings.csv","Tunde Olokesusi");
-		
 		FileReader fileReader = new FileReader(new File("src/main/resources/Secret Santa Participants.csv"));
 		BufferedReader buffRead = new BufferedReader(fileReader);
 		String participant;
@@ -93,7 +96,7 @@ public class SecretSantaGenerator {
 		String image1 = "SecretSantaImage1.png";
 		
 		// create the email message for the Secret Santa Overseer
-		String secretSantaemail = "secretsanta.gamma@gmail.com";
+		String secretSantaOverseer = "secretsanta.gamma@gmail.com";
 		ImageHtmlEmail email = new ImageHtmlEmail();
 		email.setDataSourceResolver(new DataSourceFileResolver(imagePath));
 		email.setHostName("smtp.googlemail.com");
@@ -102,7 +105,7 @@ public class SecretSantaGenerator {
 		email.setAuthentication(secretSantaEmail, secretSantaPassword);
 		email.setSSLOnConnect(true);
 		email.setFrom(secretSantaEmail,"Santa @Gamma");
-		email.addTo(secretSantaemail, "Secret Santa Overseer");
+		email.addTo(secretSantaOverseer, "Secret Santa Overseer");
 		email.setSubject("Secret Santa 2018 Participant Mappings");
 		
 		// set the html message
@@ -136,6 +139,15 @@ public class SecretSantaGenerator {
 		for(String name:santas) {
 			String emailAddress = participants1.get(name);
 			String giftee = participants2.get(name);
+			
+			// Secret Santa Label for attahcment
+			secretSantaLabel("src/main/resources/SecretSantaTemplate2.png",giftee);
+			attachment = new EmailAttachment();
+			attachment.setPath("src/main/resources/SecretSantaLabel.png");
+			attachment.setDisposition(EmailAttachment.ATTACHMENT);
+			attachment.setDescription("Secret Santa Label");
+			attachment.setName("SecretSantaLabel.png");
+			
 			email = new ImageHtmlEmail();
 			email.setDataSourceResolver(new DataSourceFileResolver(imagePath));
 			email.setHostName("smtp.googlemail.com");
@@ -158,11 +170,14 @@ public class SecretSantaGenerator {
 //				+ "You will be getting a Secret Santa gift for:" + System.lineSeparator() + System.lineSeparator() 
 //				+ giftee);
 			email.addTo(emailAddress,name);
+			email.attach(attachment);
 			email.send();
 			System.out.println("Email sent to " + name + " (" + emailAddress + ")");
+			deleteFile("src/main/resources/SecretSantaLabel.png");
 		}
 		
 		System.out.println("Emails sent to all " + numberOfParticipants + " Secret Santa participants.");
+		System.out.println("Labels for all participants have been saved in 'src/main/resources/secretsantalabels/'");
 		buffRead.close();
 	}
 	
@@ -188,14 +203,17 @@ public class SecretSantaGenerator {
         System.out.println("File deletion successful."); 
     }
 	
-	public static void secretSantaLabel(String imageFile,String name) throws IOException {
+	public static  void secretSantaLabel(String imageFile,String name) throws IOException {
 	    final BufferedImage image = ImageIO.read(new File(imageFile));
-
+	    
+	    Rectangle bounds = new Rectangle(210, 80, 400, 200);
 	    Graphics g = image.getGraphics();
-	    g.setFont(g.getFont().deriveFont(30f));
-	    g.drawString(name, 100, 100);
+	    g.setFont(new Font("Script MT Bold",Font.BOLD,62));
+	    g.setColor(Color.RED);
+	    TextRenderer.drawString(g,name,g.getFont(),g.getColor(),bounds,TextAlignment.MIDDLE);
 	    g.dispose();
 
 	    ImageIO.write(image, "png", new File("src/main/resources/SecretSantaLabel.png"));
+	    ImageIO.write(image, "png", new File("src/main/resources/secretsantalabels/"+name+".png"));
 	}
 }
