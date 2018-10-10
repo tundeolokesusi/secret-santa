@@ -107,31 +107,36 @@ public class SecretSantaGenerator {
 		String secretSantaOverseer = "secretsanta.gamma@gmail.com";
 		ImageHtmlEmail email = new ImageHtmlEmail();
 		email.setDataSourceResolver(new DataSourceFileResolver(imagePath));
-		email.setHostName("smtp.googlemail.com");
-		email.setSmtpPort(465);
-//		email.setAuthenticator(new DefaultAuthenticator(secretSantaEmail, secretSantaPassword));
-		email.setAuthentication(secretSantaEmail, secretSantaPassword);
-		email.setSSLOnConnect(true);
-		email.setFrom(secretSantaEmail,"Santa @Gamma");
-		email.addTo(secretSantaOverseer, "Secret Santa Overseer");
-		email.setSubject("Secret Santa 2018 Participant Mappings");
 		
-		// set the html message
-		String htmlTemplate ="<html><img src=\""+image1+"\"><p><br/>Ho Ho Ho,"
-				+ "<br/><br/>Attached is a csv file with the Secret Santa participants and their giftees!"
-				+ "<br/><br/>Thanks,<br/>Santa</p></html>";
-				
-		email.setHtmlMsg(htmlTemplate);
-		
-		// set the alternative message
-		email.setTextMsg("Attached is a csv file with the Secret Santa participants and their giftees!");
-		
-		// add the csv attachment
-		email.attach(attachment);
-		
-		// send the email
-		email.send();
-		System.out.println("Secret Santa mappings csv sent!");
+		try {
+			email.setHostName("smtp.googlemail.com");
+			email.setSmtpPort(587);//465);
+//			email.setAuthenticator(new DefaultAuthenticator(secretSantaEmail, secretSantaPassword));
+			email.setAuthentication(secretSantaEmail, secretSantaPassword);
+			email.setSSLOnConnect(true);
+			email.setFrom(secretSantaEmail,"Santa @Gamma");
+			email.addTo(secretSantaOverseer, "Secret Santa Overseer");
+			email.setSubject("Secret Santa 2018 Participant Mappings");
+			
+			// set the html message
+			String htmlTemplate ="<html><img src=\""+image1+"\"><p><br/>Ho Ho Ho,"
+					+ "<br/><br/>Attached is a csv file with the Secret Santa participants and their giftees!"
+					+ "<br/><br/>Thanks,<br/>Santa</p></html>";
+					
+			email.setHtmlMsg(htmlTemplate);
+			
+			// set the alternative message
+			email.setTextMsg("Attached is a csv file with the Secret Santa participants and their giftees!");
+			
+			// add the csv attachment
+			email.attach(attachment);
+			
+			// send the email
+			email.send();
+			System.out.println("Secret Santa mappings csv sent!");
+		} catch(EmailException ee) {
+			ee.printStackTrace();
+		}
 		
 		// delete the mappings csv
 		deleteFile("src/main/resources/SecretSantaMappings.csv");
@@ -158,29 +163,34 @@ public class SecretSantaGenerator {
 			
 			email = new ImageHtmlEmail();
 			email.setDataSourceResolver(new DataSourceFileResolver(imagePath));
-			email.setHostName("smtp.googlemail.com");
-			email.setSmtpPort(465);
-			email.setAuthentication(secretSantaEmail, secretSantaPassword);
-			email.setSSLOnConnect(true);
-			email.setFrom(secretSantaEmail,"Santa @Gamma");
-			email.setSubject("Secret Santa 2018");
-			// set the html message
-			htmlTemplate = "<html><img src=\""+image2+"\"><p><br/><font color=\"purple\">Ho Ho Ho " + name + ","
-					+ "<br/><br/>You will be getting a Secret Santa gift for:</font><br/><br/>"
-					+ "<font size=\"3\" color=\"white\"><strong><i>" + giftee + "<i></strong></font>"
-					+ "<br/><br/><font color=\"purple\">Please have your gifts purchased and in the avialble "
-					+ "Santa Sacks in the kitchen by " + giftPurchaseDeadline
-					+ "<br/>Gifts will be handed out on " + giftExchangeDate
-					+ "<br/><br/>Happy Gift Hunting,<br/>Santa</font></p></html>";
-			email.setHtmlMsg(htmlTemplate);
-			// set the alternative message
-//			email.setTextMsg("Ho Ho Ho " + name + "," + System.lineSeparator() + System.lineSeparator() 
-//				+ "You will be getting a Secret Santa gift for:" + System.lineSeparator() + System.lineSeparator() 
-//				+ giftee);
-			email.addTo(emailAddress,name);
-			email.attach(attachment);
-			email.send();
-			System.out.println("Email sent to " + name + " (" + emailAddress + ")");
+			
+			try {
+				email.setHostName("smtp.googlemail.com");
+				email.setSmtpPort(587);//465);
+				email.setAuthentication(secretSantaEmail, secretSantaPassword);
+				email.setSSLOnConnect(true);
+				email.setFrom(secretSantaEmail,"Santa @Gamma");
+				email.setSubject("Secret Santa 2018");
+				// set the html message
+				String htmlTemplate = "<html><img src=\""+image2+"\"><p><br/><font color=\"purple\">Ho Ho Ho " + name + ","
+						+ "<br/><br/>You will be getting a Secret Santa gift for:</font><br/><br/>"
+						+ "<font size=\"3\" color=\"white\"><strong><i>" + giftee + "<i></strong></font>"
+						+ "<br/><br/><font color=\"purple\">Please have your gifts purchased and in the avialble "
+						+ "Santa Sacks in the kitchen by " + giftPurchaseDeadline
+						+ "<br/>Gifts will be handed out on " + giftExchangeDate
+						+ "<br/><br/>Happy Gift Hunting,<br/>Santa</font></p></html>";
+				email.setHtmlMsg(htmlTemplate);
+				// set the alternative message
+//				email.setTextMsg("Ho Ho Ho " + name + "," + System.lineSeparator() + System.lineSeparator() 
+//					+ "You will be getting a Secret Santa gift for:" + System.lineSeparator() + System.lineSeparator() 
+//					+ giftee);
+				email.addTo(emailAddress,name);
+				email.attach(attachment);
+				email.send();
+				System.out.println("Email sent to " + name + " (" + emailAddress + ")");
+			} catch(EmailException ee) {
+				ee.printStackTrace();
+			}
 			deleteFile("src/main/resources/SecretSantaLabel.png");
 		}
 		
