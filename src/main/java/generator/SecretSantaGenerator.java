@@ -177,6 +177,8 @@ public class SecretSantaGenerator {
 						+ "<font size=\"3\" color=\"white\"><strong><i>" + giftee + "<i></strong></font>"
 						+ "<br/><br/><font color=\"purple\">Please have your gifts purchased and in the avialble "
 						+ "Santa Sacks in the kitchen by " + giftPurchaseDeadline
+						+ "<br/> A label with your secret Santa giftee is also attached, "
+						+ "which you can choose to print off and attach to the gift"
 						+ "<br/>Gifts will be handed out on " + giftExchangeDate
 						+ "<br/><br/>Happy Gift Hunting,<br/>Santa</font></p></html>";
 				email.setHtmlMsg(htmlTemplate);
