@@ -41,6 +41,10 @@ import text.TextRenderer;
  **/
 
 public class SecretSantaGenerator {
+	public static boolean emailMappings = true;
+	public static String giftPurchaseDeadline = "Wednesday 12th December";
+	public static String giftExchangeDate = "Thursday 13th December @ 11am";
+	public static boolean emailParticipants = true;
 
 	public static void main(String[] args) throws IOException, EmailException {
 		FileReader fileReader = new FileReader(new File("src/main/resources/Secret Santa Participants.csv"));
@@ -119,9 +123,9 @@ public class SecretSantaGenerator {
 			email.setSubject("Secret Santa 2018 Participant Mappings");
 			
 			// set the html message
-			String htmlTemplate ="<html><img src=\""+image1+"\"><p><br/>Ho Ho Ho,"
+			String htmlTemplate ="<html><center><img src=\""+image1+"\"><p><br/>Ho Ho Ho,"
 					+ "<br/><br/>Attached is a csv file with the Secret Santa participants and their giftees!"
-					+ "<br/><br/>Thanks,<br/>Santa</p></html>";
+					+ "<br/><br/>Thanks,<br/>Santa</p></center></html>";
 					
 			email.setHtmlMsg(htmlTemplate);
 			
@@ -131,18 +135,18 @@ public class SecretSantaGenerator {
 			// add the csv attachment
 			email.attach(attachment);
 			
-			// send the email
-			email.send();
-			System.out.println("Secret Santa mappings csv sent!");
+			if(emailMappings) {
+				email.send(); // send the email
+				System.out.println("Secret Santa mappings csv sent!");
+			}
 		} catch(EmailException ee) {
 			ee.printStackTrace();
 		}
 		
-		// delete the mappings csv
-		deleteFile("src/main/resources/SecretSantaMappings.csv");
-		
-		String giftPurchaseDeadline = "Wednesday 12th December";
-		String giftExchangeDate = "Thursday 13th December @ 11am";
+		if(emailMappings) {
+			// delete the mappings csv
+			deleteFile("src/main/resources/SecretSantaMappings.csv");
+		}
 		
 		// set embedded image for participant email
 		String image2 = "SecretSantaImage2a.png";
@@ -172,15 +176,15 @@ public class SecretSantaGenerator {
 				email.setFrom(secretSantaEmail,"Santa @Gamma");
 				email.setSubject("Secret Santa 2018");
 				// set the html message
-				String htmlTemplate = "<html><img src=\""+image2+"\"><p><br/><font color=\"purple\">Ho Ho Ho " + name + ","
+				String htmlTemplate = "<html><center><img src=\""+image2+"\"><p><br/><font color=\"purple\">Ho Ho Ho " + name + ","
 						+ "<br/><br/>You will be getting a Secret Santa gift for:</font><br/><br/>"
 						+ "<font size=\"3\" color=\"white\"><strong><i>" + giftee + "<i></strong></font>"
 						+ "<br/><br/><font color=\"purple\">Please have your gifts purchased and in the avialble "
-						+ "Santa Sacks in the kitchen by " + giftPurchaseDeadline
+						+ "Santa Sacks in the kitchen by " + giftPurchaseDeadline + "."
 						+ "<br/> A label with your secret Santa giftee is also attached, "
-						+ "which you can choose to print off and attach to the gift"
-						+ "<br/>Gifts will be handed out on " + giftExchangeDate
-						+ "<br/><br/>Happy Gift Hunting,<br/>Santa</font></p></html>";
+						+ "which you can choose to print off and attach to the gift."
+						+ "<br/>Gifts will be handed out on " + giftExchangeDate + "."
+						+ "<br/><br/>Happy Gift Hunting,<br/>Santa</font></p></center></html>";
 				email.setHtmlMsg(htmlTemplate);
 				// set the alternative message
 //				email.setTextMsg("Ho Ho Ho " + name + "," + System.lineSeparator() + System.lineSeparator() 
@@ -188,7 +192,9 @@ public class SecretSantaGenerator {
 //					+ giftee);
 				email.addTo(emailAddress,name);
 				email.attach(attachment);
-				email.send();
+				if(emailParticipants) {
+					email.send();
+				}
 				System.out.println("Email sent to " + name + " (" + emailAddress + ")");
 			} catch(EmailException ee) {
 				ee.printStackTrace();
