@@ -41,7 +41,12 @@ import text.TextRenderer;
  **/
 
 public class SecretSantaGenerator {
+	// set Email details
+	public static String secretSantaEmail = "secretsanta.gamma@gmail.com";
+	public static String secretSantaPassword = "SantaAtGamma2018";
+	public static String secretSantaOverseer = "secretsanta.gamma@gmail.com";
 	public static boolean emailMappings = true;
+	public static String purchaseLimit = "£10";
 	public static String giftPurchaseDeadline = "Wednesday 12th December";
 	public static String giftExchangeDate = "Thursday 13th December @ 11am";
 	public static boolean emailParticipants = true;
@@ -99,16 +104,11 @@ public class SecretSantaGenerator {
 		attachment.setDescription("Secret Santa Mappings csv");
 		attachment.setName("SecretSantaMappings.csv");
 		
-		// set Email details
-		String secretSantaEmail = "secretsanta.gamma@gmail.com";
-		String secretSantaPassword = "SantaAtGamma2018";
-		
 		// set embedded image for overseer email
 		File imagePath = new File("src/main/resources/");
 		String image1 = "SecretSantaImage1.png";
 		
 		// create the email message for the Secret Santa Overseer
-		String secretSantaOverseer = "secretsanta.gamma@gmail.com";
 		ImageHtmlEmail email = new ImageHtmlEmail();
 		email.setDataSourceResolver(new DataSourceFileResolver(imagePath));
 		
@@ -125,7 +125,9 @@ public class SecretSantaGenerator {
 			// set the html message
 			String htmlTemplate ="<html><center><img src=\""+image1+"\"><p><br/>Ho Ho Ho,"
 					+ "<br/><br/>Attached is a csv file with the Secret Santa participants and their giftees!"
-					+ "<br/><br/>Thanks,<br/>Santa</p></center></html>";
+					+ "<br/>You have been entrusted with these mappings, and as the keeper, "
+					+ "you are not to look at these unless it is absolutely necessary!"
+					+ "<br/><br/>Thank You and Merry Christmas,<br/>Santa</p></center></html>";
 					
 			email.setHtmlMsg(htmlTemplate);
 			
@@ -179,9 +181,10 @@ public class SecretSantaGenerator {
 				String htmlTemplate = "<html><center><img src=\""+image2+"\"><p><br/><font color=\"purple\">Ho Ho Ho " + name + ","
 						+ "<br/><br/>You will be getting a Secret Santa gift for:</font><br/><br/>"
 						+ "<font size=\"3\" color=\"white\"><strong><i>" + giftee + "<i></strong></font>"
-						+ "<br/><br/><font color=\"purple\">Please have your gifts purchased and in the avialble "
+						+ "<br/><br/><font color=\"purple\">The price limit for gifts this year is "+ purchaseLimit
+						+ "<br/>Please have your gifts purchased and in the avialble "
 						+ "Santa Sacks in the kitchen by " + giftPurchaseDeadline + "."
-						+ "<br/> A label with your secret Santa giftee is also attached, "
+						+ "<br/>A label with your secret Santa giftee is also attached, "
 						+ "which you can choose to print off and attach to the gift."
 						+ "<br/>Gifts will be handed out on " + giftExchangeDate + "."
 						+ "<br/><br/>Happy Gift Hunting,<br/>Santa</font></p></center></html>";
