@@ -41,7 +41,8 @@ import text.TextRenderer;
  **/
 
 public class SecretSantaGenerator {
-	// set Email details
+	// set required details
+	public static String participantsCSV= "Secret Santa Participants.csv";
 	public static String secretSantaEmail = "secretsanta.gamma@gmail.com";
 	public static String secretSantaPassword = "SantaAtGamma2018";
 	public static String secretSantaOverseer = "secretsanta.gamma@gmail.com";
@@ -49,10 +50,24 @@ public class SecretSantaGenerator {
 	public static String purchaseLimit = "£10";
 	public static String giftPurchaseDeadline = "Wednesday 12th December";
 	public static String giftExchangeDate = "Thursday 13th December @ 11am";
-	public static boolean emailParticipants = true;
+	public static boolean emailParticipants = false;
 
 	public static void main(String[] args) throws IOException, EmailException {
-		FileReader fileReader = new FileReader(new File("src/main/resources/Secret Santa Participants.csv"));
+		File participantsCSVFile = new File("src/main/resources/"+participantsCSV);
+		
+		//Check that participants file is present in required folder
+		if (participantsCSVFile.exists()) {
+			System.out.println("CSV File of participants '"+ participantsCSV
+					+ "' exists in the resources (src/main/resources/) folder.");
+		}
+		else{
+			System.out.println("Could not find CSV File of participants '"+ participantsCSV
+					+ "' in the resources (src/main/resources/) folder.\n"
+					+ "Please make sure the csv file is in the right location");
+			return;
+		}
+		
+		FileReader fileReader = new FileReader(new File(participantsCSVFile.toString()));
 		BufferedReader buffRead = new BufferedReader(fileReader);
 		String participant;
 		Map<String, String> participants1 = new HashMap<String, String>();
@@ -115,7 +130,6 @@ public class SecretSantaGenerator {
 		try {
 			email.setHostName("smtp.googlemail.com");
 			email.setSmtpPort(587);//465);
-//			email.setAuthenticator(new DefaultAuthenticator(secretSantaEmail, secretSantaPassword));
 			email.setAuthentication(secretSantaEmail, secretSantaPassword);
 			email.setSSLOnConnect(true);
 			email.setFrom(secretSantaEmail,"Santa @Gamma");
@@ -140,18 +154,15 @@ public class SecretSantaGenerator {
 			if(emailMappings) {
 				email.send(); // send the email
 				System.out.println("Secret Santa mappings csv sent!");
+				// delete the mappings csv from local system
+				deleteFile("src/main/resources/SecretSantaMappings.csv");
 			}
 		} catch(EmailException ee) {
 			ee.printStackTrace();
 		}
 		
-		if(emailMappings) {
-			// delete the mappings csv
-			deleteFile("src/main/resources/SecretSantaMappings.csv");
-		}
-		
 		// set embedded image for participant email
-		String image2 = "SecretSantaImage2a.png";
+//		String image2 = "SecretSantaImage2a.png";
 		
 		// send emails to each participant with the name of their giftee
 		List<String> santas = Lists.newArrayList(participants2.keySet().iterator());
@@ -178,7 +189,7 @@ public class SecretSantaGenerator {
 				email.setFrom(secretSantaEmail,"Santa @Gamma");
 				email.setSubject("Secret Santa 2018");
 				// set the html message
-				String htmlTemplate = "<html><center><img src=\""+image2+"\"><p><br/><font color=\"purple\">Ho Ho Ho " + name + ","
+				String htmlTemplate = "<html><center><img src=\""+image1+"\"><p><br/><font color=\"purple\">Ho Ho Ho " + name + ","
 						+ "<br/><br/>You will be getting a Secret Santa gift for:</font><br/><br/>"
 						+ "<font size=\"3\" color=\"white\"><strong><i>" + giftee + "<i></strong></font>"
 						+ "<br/><br/><font color=\"purple\">The price limit for gifts this year is "+ purchaseLimit
@@ -197,17 +208,20 @@ public class SecretSantaGenerator {
 				email.attach(attachment);
 				if(emailParticipants) {
 					email.send();
+					System.out.println("Email sent to " + name + " (" + emailAddress + ")");
 				}
-				System.out.println("Email sent to " + name + " (" + emailAddress + ")");
 			} catch(EmailException ee) {
 				ee.printStackTrace();
 			}
-			deleteFile("src/main/resources/SecretSantaLabel.png");
+//			deleteFile("src/main/resources/SecretSantaLabel.png");
 		}
-		
-		System.out.println("Emails sent to all " + numberOfParticipants + " Secret Santa participants.");
+		if(emailParticipants) {
+			System.out.println("Emails sent to all " + numberOfParticipants + " Secret Santa participants.");
+		}
 		System.out.println("Labels for all participants have been saved in 'src/main/resources/secretsantalabels/'");
+		deleteFile("src/main/resources/SecretSantaLabel.png");
 		buffRead.close();
+		System.out.println("Have a Merry Christmas!");
 	}
 	
 	public static void deleteFile(String file) { 
