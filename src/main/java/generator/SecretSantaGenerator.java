@@ -42,7 +42,7 @@ import text.TextRenderer;
 
 public class SecretSantaGenerator {
 	// set required details
-	public static String participantsCSV= "Secret Santa Participants.csv";
+	public static String participantsCSV= "Secret Santa Participants at Gamma.csv";
 	public static String secretSantaEmail = "secretsanta.gamma@gmail.com";
 	public static String secretSantaPassword = "SantaAtGamma2018";
 	public static String secretSantaOverseer = "secretsanta.gamma@gmail.com";
@@ -219,7 +219,12 @@ public class SecretSantaGenerator {
 			System.out.println("Emails sent to all " + numberOfParticipants + " Secret Santa participants.");
 		}
 		System.out.println("Labels for all participants have been saved in 'src/main/resources/secretsantalabels/'");
-		deleteFile("src/main/resources/SecretSantaLabel.png");
+		
+		File label = new File("src/main/resources/SecretSantaLabel.png");
+		while (label.exists()) {
+			deleteFile("src/main/resources/SecretSantaLabel.png");
+		}
+		
 		buffRead.close();
 		System.out.println("Have a Merry Christmas!");
 	}
