@@ -48,8 +48,8 @@ public class SecretSantaGenerator {
 	public static String secretSantaOverseer = "secretsanta.gamma@gmail.com";
 	public static boolean emailMappings = true;
 	public static String purchaseLimit = "£10";
-	public static String giftPurchaseDeadline = "Wednesday 12th December";
-	public static String giftExchangeDate = "Thursday 13th December @ 11am";
+	public static String giftPurchaseDeadline = "Tuesday 11th December";
+	public static String giftExchangeDate = "Wednesday 12th December";
 	public static boolean emailParticipants = false;
 
 	public static void main(String[] args) throws IOException, EmailException {
@@ -139,8 +139,8 @@ public class SecretSantaGenerator {
 			// set the html message
 			String htmlTemplate ="<html><center><img src=\""+image1+"\"><p><br/>Ho Ho Ho,"
 					+ "<br/><br/>Attached is a csv file with the Secret Santa participants and their giftees!"
-					+ "<br/>You have been entrusted with these mappings, and as the keeper, "
-					+ "you are not to look at these unless it is absolutely necessary!"
+					+ "<br/>You have been entrusted with these mappings, please don't look at them unless it "
+					+ "is absolutely necessary!"
 					+ "<br/><br/>Thank You and Merry Christmas,<br/>Santa</p></center></html>";
 					
 			email.setHtmlMsg(htmlTemplate);
@@ -187,18 +187,18 @@ public class SecretSantaGenerator {
 				email.setAuthentication(secretSantaEmail, secretSantaPassword);
 				email.setSSLOnConnect(true);
 				email.setFrom(secretSantaEmail,"Santa @Gamma");
-				email.setSubject("Secret Santa 2018");
+				email.setSubject("Dear Secret Santa");
 				// set the html message
-				String htmlTemplate = "<html><center><img src=\""+image1+"\"><p><br/><font color=\"purple\">Ho Ho Ho " + name + ","
-						+ "<br/><br/>You will be getting a Secret Santa gift for:</font><br/><br/>"
-						+ "<font size=\"3\" color=\"white\"><strong><i>" + giftee + "<i></strong></font>"
-						+ "<br/><br/><font color=\"purple\">The price limit for gifts this year is "+ purchaseLimit
-						+ "<br/>Please have your gifts purchased and in the avialble "
+				String htmlTemplate = "<html><center><img src=\""+image1+"\"><p><br/><i><font color=\"purple\">Ho Ho Ho " + name + ","
+						+ "<br/><br/>This year for Christmas, would you be so kind as to procure a gift for:</font><br/><br/>"
+						+ "<font size=\"3\" color=\"white\"><strong>" + giftee + "</strong></font>"
+						+ "<br/><br/><font color=\"purple\">This gift does not need to exceed "+ purchaseLimit
+						+ "<br/>Please ensure your gift is purchased, wrapped and in the avialble "
 						+ "Santa Sacks in the kitchen by " + giftPurchaseDeadline + "."
-						+ "<br/>A label with your secret Santa giftee is also attached, "
-						+ "which you can choose to print off and attach to the gift."
+						+ "<br/>Attached is a label with your Secret Santa giftee's name, "
+						+ "which you may choose to print off and attach to their gift."
 						+ "<br/>Gifts will be handed out on " + giftExchangeDate + "."
-						+ "<br/><br/>Happy Gift Hunting,<br/>Santa</font></p></center></html>";
+						+ "<br/><br/>Happy Gift Hunting,<br/>Santa</font></p></i></center></html>";
 				email.setHtmlMsg(htmlTemplate);
 				// set the alternative message
 //				email.setTextMsg("Ho Ho Ho " + name + "," + System.lineSeparator() + System.lineSeparator() 
