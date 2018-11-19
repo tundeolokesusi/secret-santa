@@ -47,6 +47,7 @@ public class SecretSantaGenerator {
 	public static String secretSantaPassword = "SantaAtGamma2018";
 	public static String secretSantaOverseer = "secretsanta.gamma@gmail.com";
 	public static boolean emailMappings = true;
+	public static boolean deleteMappings = false;
 	public static String purchaseLimit = "£10";
 	public static String giftPurchaseDeadline = "Tuesday 11th December";
 	public static String giftExchangeDate = "Wednesday 12th December";
@@ -134,6 +135,7 @@ public class SecretSantaGenerator {
 			email.setSSLOnConnect(true);
 			email.setFrom(secretSantaEmail,"Santa @Gamma");
 			email.addTo(secretSantaOverseer, "Secret Santa Overseer");
+//			email.addBcc("tundeolokesusi@gmail.com","Tunde Olokesusi");
 			email.setSubject("Secret Santa 2018 Participant Mappings");
 			
 			// set the html message
@@ -155,7 +157,9 @@ public class SecretSantaGenerator {
 				email.send(); // send the email
 				System.out.println("Secret Santa mappings csv sent!");
 				// delete the mappings csv from local system
-				deleteFile("src/main/resources/SecretSantaMappings.csv");
+				if(deleteMappings) {
+					deleteFile("src/main/resources/SecretSantaMappings.csv");
+				}
 			}
 		} catch(EmailException ee) {
 			ee.printStackTrace();
