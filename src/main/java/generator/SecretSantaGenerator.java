@@ -198,7 +198,7 @@ public class SecretSantaGenerator {
 						+ "<font size=\"3\" color=\"white\"><strong>" + giftee + "</strong></font>"
 						+ "<br/><br/><font color=\"purple\">This gift does not need to exceed "+ purchaseLimit
 						+ "<br/>Please ensure your gift is purchased, wrapped and in the avialble "
-						+ "Santa Sacks in the kitchen by " + giftPurchaseDeadline + "."
+						+ "Santa Sacks in the kitchen by the end of " + giftPurchaseDeadline + "."
 						+ "<br/>Attached is a label with your Secret Santa giftee's name, "
 						+ "which you may choose to print off and attach to their gift."
 						+ "<br/>Gifts will be handed out on " + giftExchangeDate + "."
