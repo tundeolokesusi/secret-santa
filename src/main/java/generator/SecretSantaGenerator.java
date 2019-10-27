@@ -42,16 +42,18 @@ import text.TextRenderer;
 
 public class SecretSantaGenerator {
 	// set required details
-	public static String participantsCSV= "Secret Santa Participants at Gamma.csv";
+	public static String participantsCSV= "Secret Santa Test Team.csv";
 	public static String secretSantaEmail = "secretsanta.gamma@gmail.com";
 	public static String secretSantaPassword = "SantaAtGamma2018";
 	public static String secretSantaOverseer = "secretsanta.gamma@gmail.com";
 	public static boolean emailMappings = true;
 	public static boolean deleteMappings = false;
 	public static String purchaseLimit = "£10";
-	public static String giftPurchaseDeadline = "Tuesday 11th December";
-	public static String giftExchangeDate = "Wednesday 12th December";
+	public static String giftPurchaseDeadline = "Tuesday 10th December";
+	public static String giftExchangeDate = "Wednesday 11th December";
 	public static boolean emailParticipants = false;
+	public static String linkedParticipant = "Cerys Brook"; //Cheat to make sure a particular
+	public static String linkedGiftee = "Helen Horseman";	   //person gets another
 
 	public static void main(String[] args) throws IOException, EmailException {
 		File participantsCSVFile = new File("src/main/resources/"+participantsCSV);
@@ -96,11 +98,17 @@ public class SecretSantaGenerator {
 		Map<String, String> participants2 = new HashMap<String, String>();
 		String participantsMapping = "";
 		for(String name:name1) {
-			item = new Random().nextInt(name2.size());
-			String giftee = name2.get(item);
-			while (giftee.equals(name)) { //Cannot select own name
+			String giftee;
+			if(name.equals(linkedParticipant)) {
+				giftee = linkedGiftee;
+			}
+			else {
 				item = new Random().nextInt(name2.size());
 				giftee = name2.get(item);
+				while (giftee.equals(name) || giftee.equals(linkedGiftee)) { //Cannot select own name or linked name
+					item = new Random().nextInt(name2.size());
+					giftee = name2.get(item);
+				}
 			}
 			participants2.put(name, giftee);
 			name2.remove(giftee);
