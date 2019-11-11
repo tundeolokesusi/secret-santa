@@ -42,11 +42,11 @@ import text.TextRenderer;
 
 public class SecretSantaGenerator {
 	// set required details
-	public static String participantsCSV= "Secret Santa Test Team.csv";
+	public static String participantsCSV = "Secret Santa Participants at Gamma.csv";//"Secret Santa Test Team.csv";
 	public static String secretSantaEmail = "secretsanta.gamma@gmail.com";
 	public static String secretSantaPassword = "SantaAtGamma2018";
 	public static String secretSantaOverseer = "secretsanta.gamma@gmail.com";
-	public static boolean emailMappings = true;
+	public static boolean emailMappings = false;
 	public static boolean deleteMappings = false;
 	public static String purchaseLimit = "£10";
 	public static String giftPurchaseDeadline = "Tuesday 10th December";
@@ -54,6 +54,7 @@ public class SecretSantaGenerator {
 	public static boolean emailParticipants = false;
 	public static String linkedParticipant = "Cerys Brook"; //Cheat to make sure a particular
 	public static String linkedGiftee = "Helen Horseman";	   //person gets another
+	public static boolean linkedNamesCheat = false;
 
 	public static void main(String[] args) throws IOException, EmailException {
 		File participantsCSVFile = new File("src/main/resources/"+participantsCSV);
@@ -99,13 +100,23 @@ public class SecretSantaGenerator {
 		String participantsMapping = "";
 		for(String name:name1) {
 			String giftee;
-			if(name.equals(linkedParticipant)) {
-				giftee = linkedGiftee;
+			if(linkedNamesCheat) {
+				if(name.equals(linkedParticipant)) {
+					giftee = linkedGiftee;
+				}
+				else {
+					item = new Random().nextInt(name2.size());
+					giftee = name2.get(item);
+					while (giftee.equals(name) || giftee.equals(linkedGiftee)) { //Cannot select own name or linked name
+						item = new Random().nextInt(name2.size());
+						giftee = name2.get(item);
+					}
+				}
 			}
 			else {
 				item = new Random().nextInt(name2.size());
 				giftee = name2.get(item);
-				while (giftee.equals(name) || giftee.equals(linkedGiftee)) { //Cannot select own name or linked name
+				while (giftee.equals(name)) { //Cannot select own name
 					item = new Random().nextInt(name2.size());
 					giftee = name2.get(item);
 				}
