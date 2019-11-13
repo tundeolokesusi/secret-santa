@@ -42,15 +42,16 @@ import text.TextRenderer;
 
 public class SecretSantaGenerator {
 	// set required details
-	public static String participantsCSV = "Secret Santa Participants at Gamma.csv";//"Secret Santa Test Team.csv";
+	public static String participantsCSV = "Secret Santa Participants at Gamma.csv";//"Secret Santa Test Team.csv";//"Secret Santa Participants.csv";
 	public static String secretSantaEmail = "secretsanta.gamma@gmail.com";
 	public static String secretSantaPassword = "SantaAtGamma2018";
 	public static String secretSantaOverseer = "secretsanta.gamma@gmail.com";
-	public static boolean emailMappings = false;
-	public static boolean deleteMappings = false;
+	public static String secretSantaOrganiser = "Tunde"; 
 	public static String purchaseLimit = "£10";
 	public static String giftPurchaseDeadline = "Tuesday 10th December";
 	public static String giftExchangeDate = "Wednesday 11th December";
+	public static boolean emailMappings = false;
+	public static boolean deleteMappings = false;
 	public static boolean emailParticipants = false;
 	public static String linkedParticipant = "Cerys Brook"; //Cheat to make sure a particular
 	public static String linkedGiftee = "Helen Horseman";	   //person gets another
@@ -220,7 +221,8 @@ public class SecretSantaGenerator {
 						+ "Santa Sacks in the kitchen by the end of " + giftPurchaseDeadline + "."
 						+ "<br/>Attached is a label with your Secret Santa giftee's name, "
 						+ "which you may choose to print off and attach to their gift."
-						+ "<br/>Gifts will be handed out on " + giftExchangeDate + "."
+						+ "<br/>Printed labels will also be available for collection from your Secret Santa oragniser, that's "
+						+ secretSantaOrganiser + ".<br/>Gifts will be handed out on " + giftExchangeDate + "."
 						+ "<br/><br/>Happy Gift Hunting,<br/>Santa</font></p></i></center></html>";
 				email.setHtmlMsg(htmlTemplate);
 				// set the alternative message
