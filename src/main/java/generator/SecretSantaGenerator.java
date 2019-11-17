@@ -195,7 +195,7 @@ public class SecretSantaGenerator {
 			String giftee = participants2.get(name);
 			
 			// Secret Santa Label for attahcment
-			secretSantaLabel("src/main/resources/SecretSantaTemplate2.png",giftee);
+			secretSantaLabel("src/main/resources/SecretSantaTemplate3.png",giftee);
 			attachment = new EmailAttachment();
 			attachment.setPath("src/main/resources/SecretSantaLabel.png");
 			attachment.setDisposition(EmailAttachment.ATTACHMENT);
