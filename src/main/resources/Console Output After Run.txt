@@ -1,42 +1,35 @@
 CSV File of participants 'Secret Santa Participants at Gamma.csv' exists in the resources (src/main/resources/) folder.
 Secret Santa mappings csv created!
 Secret Santa mappings csv sent!
+Attempting to delete 'src/main/resources/SecretSantaMappings.csv'
+File deletion successful.
 Email sent to Stephen Gale (Stephen.Gale@gamma.co.uk)
 Email sent to Rowan Lee (Rowan.Lee@gamma.co.uk)
 Email sent to Jack Reynolds (Jack.Reynolds@gamma.co.uk)
 Email sent to Antony Krstic (Antony.Krstic@gamma.co.uk)
 Email sent to Luke Cann (Luke.Cann@gamma.co.uk)
-Email sent to Martin Cassidy (Martin.Cassidy@gamma.co.uk)
-Email sent to Luke Gee (Luke.Gee@gamma.co.uk)
+Email sent to Abbaas Rafiq (Abbaas.Rafiq@gamma.co.uk)
 Email sent to Timothy Senanayake (Timothy.Senanayake@gamma.co.uk)
+Email sent to Martin Cassidy (Martin.Cassidy@gamma.co.uk)
 Email sent to Graham Wilks (Graham.Wilks@gamma.co.uk)
 Email sent to Sylvia Wong (Sylvia.Wong@gamma.co.uk)
 Email sent to David Brown (David.Brown@gamma.co.uk)
 Email sent to James Whitmee (James.Whitmee@gamma.co.uk)
 Email sent to Joe Forrester (Joe.Forrester@gamma.co.uk)
 Email sent to Edward Moody (Edward.Moody@gamma.co.uk)
-Email sent to Sam Bultitude (Sam.Bultitude@gamma.co.uk)
-Email sent to Liam Collick (Liam.Collick@gamma.co.uk)
 Email sent to Mark Willett (Mark.Willett@gamma.co.uk)
 Email sent to Jan Pasierb (Jan.Pasierb@gamma.co.uk)
 Email sent to Cerys Brook (Cerys.Brook@gamma.co.uk)
 Email sent to Charlie Arnold (Charlie.Arnold@gamma.co.uk)
-Email sent to Josh Driscoll (Josh.Driscoll@gamma.co.uk)
-Email sent to Joanna Edmonds (Joanna.Edmonds@gamma.co.uk)
-Email sent to Matthew Pinkerton (Matthew.Pinkerton@gamma.co.uk)
 Email sent to David Haasz (David.Haasz@gamma.co.uk)
-Email sent to Bernice Gardiner (Bernice.Gardiner@gamma.co.uk)
+Email sent to Niall Francis (Niall.Francis@gamma.co.uk)
 Email sent to Tunde Olokesusi (Tunde.Olokesusi@gamma.co.uk)
-Email sent to Olawumi Ajileye (Olawumi.Ajileye@gamma.co.uk)
 Email sent to Jason McMahon (Jason.McMahon@gamma.co.uk)
 Email sent to Fred Jones (Fred.Jones@gamma.co.uk)
-Email sent to Bethan Paice (Bethan.Paice@gamma.co.uk)
 Email sent to Laurie Clarke (Laurie.Clarke@gamma.co.uk)
-Email sent to Oliver Durham (Oliver.Durham@gamma.co.uk)
-Email sent to Nick Wavell (Nick.Wavell@gamma.co.uk)
-Email sent to Jen Truby (Jen.Truby@gamma.co.uk)
-Email sent to Dadamuga Mazino (Dadamuga.Mazino@gamma.co.uk)
-Emails sent to all 35 Secret Santa participants.
+Email sent to Bethan Paice (Bethan.Paice@gamma.co.uk)
+Email sent to Tim Delaney (Tim.Delaney@gamma.co.uk)
+Emails sent to all 26 Secret Santa participants.
 Labels for all participants have been saved in 'src/main/resources/secretsantalabels/'
 Attempting to delete 'src/main/resources/SecretSantaLabel.png'
 File deletion successful.
